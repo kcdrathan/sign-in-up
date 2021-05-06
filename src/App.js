@@ -34,11 +34,6 @@ function App({ currentUser }) {
         <CustomButton type="button" onClick={() => auth.signOut()}>
           SIGN OUT
         </CustomButton>
-        {currentUser ? (
-          <Alert severity="success">Successfully logged in</Alert>
-        ) : (
-          <Alert severity="info">No User is logged in</Alert>
-        )}
       </div>
     </div>
   );
