@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-function App() {
+import { auth } from "./firebase/firebase.util";
+import SignIn from "./components/signIn/signIn";
+import SignUp from "./components/signUp/signUp";
+import { selectCurrentUser } from "./redux/user/user.selectors";
+
+import "./App.scss";
+
+function App({ currentUser }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="sign-in-up">
+      <SignIn />
+      <SignUp />
+      {currentUser ? (
+        <button className="option" onClick={() => auth.signOut()}>
+          SIGN OUT
+        </button>
+      ) : (
+        <button className="option">SIGN IN</button>
+      )}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
+
+export default connect(mapStateToProps)(App);
