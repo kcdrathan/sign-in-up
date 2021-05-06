@@ -2,15 +2,13 @@
   width: 1150px;
   display: flex;
   justify-content: space-between;
-  margin: 30px auto;
-
-  .option {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 10px 15px;
-    cursor: pointer;
-  }
+  margin: 100px auto;
+}
+.option {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 15px;
+  cursor: pointer;
 }

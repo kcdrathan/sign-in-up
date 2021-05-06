@@ -1,26 +1,45 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { makeStyles } from "@material-ui/core/styles";
+import Alert from "@material-ui/lab/Alert";
 
 import { auth } from "./firebase/firebase.util";
 import SignIn from "./components/signIn/signIn";
 import SignUp from "./components/signUp/signUp";
+import CustomButton from "./components/customButton/customButton";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 
 import "./App.scss";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
 function App({ currentUser }) {
+  const classes = useStyles();
+
   return (
-    <div className="sign-in-up">
-      <SignIn />
-      <SignUp />
-      {currentUser ? (
-        <button className="option" onClick={() => auth.signOut()}>
+    <div>
+      <div className="sign-in-up">
+        <SignIn />
+        <SignUp />
+      </div>
+      <div>
+        <CustomButton type="button" onClick={() => auth.signOut()}>
           SIGN OUT
-        </button>
-      ) : (
-        <button className="option">SIGN IN</button>
-      )}
+        </CustomButton>
+        {currentUser ? (
+          <Alert severity="success">Successfully logged in</Alert>
+        ) : (
+          <Alert severity="info">No User is logged in</Alert>
+        )}
+      </div>
     </div>
   );
 }
